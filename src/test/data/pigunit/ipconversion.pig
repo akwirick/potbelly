@@ -1,3 +1,6 @@
-A = LOAD '$input' AS (string_address:CHARARRAY)
-B = FOREACH A GENERATE com.akwirick.pig.IPToInt(string_address)
-STORE B INTO '$output';
+REGISTER target/potbelly-0.1.jar;
+DEFINE IPToInt com.akwirick.potbelly.IPToInt;
+
+A = LOAD 'string_ips.txt' AS (ip:CHARARRAY);
+B = FOREACH A GENERATE IPToInt(ip);
+DUMP B;
